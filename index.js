@@ -2,8 +2,8 @@
  * Module dependencies.
  */
 
-var Emitter = require('emitter');
-var events = require('event');
+var Emitter = require('component-emitter');
+var events = require('component-event');
 
 /**
  * Expose `Upload`.
