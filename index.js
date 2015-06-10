@@ -17,7 +17,7 @@ module.exports = Upload;
  * @api private
  */
 
-function validateConfig() {
+function validateConfig(S3) {
   if (!S3.signature) throw new Error('S3.signature required');
   if (!S3.bucket) throw new Error('S3.bucket required');
   if (!S3.policy) throw new Error('S3.policy required');
@@ -53,7 +53,8 @@ function Upload(file, opts) {
   if (!(this instanceof Upload)) return new Upload(file, opts);
   opts = opts || {};
   if (!opts.protocol) opts.protocol = window.location.protocol;
-  validateConfig();
+  var S3 = opts.S3;
+  validateConfig(S3);
   this.file = file;
   this.type = opts.type || file.type || 'application/octet-stream';
   this.name = opts.name || file.name;
