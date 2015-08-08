@@ -54,6 +54,8 @@ function Upload(file, opts) {
   opts = opts || {};
   if (!opts.protocol) opts.protocol = window.location.protocol;
   var S3 = opts.S3;
+  var meta = opts.meta || {};
+  
   validateConfig(S3);
   this.file = file;
   this.type = opts.type || file.type || 'application/octet-stream';
@@ -65,8 +67,8 @@ function Upload(file, opts) {
   this.policy = S3.policy;
   this.key = S3.key;
   this.acl = S3.acl;
-  this.meta = Object.keys(S3.meta || {}).map(function(key) {
-    return ['x-amz-meta-' + key, S3.meta[key]]
+  this.meta = Object.keys(meta).map(function(key) {
+    return ['x-amz-meta-' + key, meta[key]]
   })
 }
 
