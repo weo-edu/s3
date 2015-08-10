@@ -116,6 +116,7 @@ Upload.prototype.end = function(fn){
   form.append('signature', this.signature);
   form.append('Content-Type', this.type);
   form.append('Content-Length', this.file.length);
+  form.append('Content-Disposition', 'attachment; filename="' + this.file.name + '"');
   form.append('file', this.file);
   
   this.meta.forEach(function(meta) {
