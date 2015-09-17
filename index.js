@@ -67,6 +67,7 @@ function Upload(file, opts) {
   this.policy = S3.policy;
   this.key = S3.key;
   this.acl = S3.acl;
+  this.attachment = opts.attachment
   this.meta = Object.keys(meta).map(function(key) {
     return ['x-amz-meta-' + key, meta[key]]
   })
@@ -116,7 +117,9 @@ Upload.prototype.end = function(fn){
   form.append('signature', this.signature);
   form.append('Content-Type', this.type);
   form.append('Content-Length', this.file.length);
-  form.append('Content-Disposition', 'attachment; filename="' + this.file.name + '"');
+  if (this.attachment) {
+    form.append('Content-Disposition', 'attachment; filename="' + this.file.name + '"');
+  }
   form.append('file', this.file);
   
   this.meta.forEach(function(meta) {
